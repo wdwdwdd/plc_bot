@@ -1,0 +1,22 @@
+database:
+  host: localhost
+  port: 5432
+  name: plc_monitor
+  user: admin
+  password: secret
+
+collector:
+  interval: 5  # 采集间隔（秒）
+  retry_interval: 30  # 重试间隔（秒）
+  max_retries: 3
+
+api:
+  host: 0.0.0.0
+  port: 8000
+  debug: false
+  secret_key: your-secret-key-here
+
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: logs/plc_monitor.log

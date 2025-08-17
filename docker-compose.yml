@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  collector:
+    build: ./collector
+    volumes:
+      - ./config:/app/config
+    depends_on:
+      - database
+
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config:/app/config
+    depends_on:
+      - database
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: plc_monitor
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

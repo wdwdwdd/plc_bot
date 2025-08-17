@@ -1,0 +1,22 @@
+devices:
+  - name: PLC-001
+    ip_address: 192.168.1.100
+    port: 502
+    points:
+      - address: 1000
+        name: 温度
+        type: float
+      - address: 1002
+        name: 压力
+        type: float
+  
+  - name: PLC-002
+    ip_address: 192.168.1.101
+    port: 502
+    points:
+      - address: 2000
+        name: 速度
+        type: int
+      - address: 2002
+        name: 计数
+        type: int
