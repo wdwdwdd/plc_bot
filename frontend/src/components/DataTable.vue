@@ -12,7 +12,7 @@
         <option value="168">最近7天</option>
       </select>
     </div>
-    
+
     <table>
       <thead>
         <tr>
@@ -50,7 +50,18 @@ export default {
       devices: []
     }
   },
-  
+  async created() {
+    try {
+      const res = await fetch('/api/devices/')
+      this.devices = await res.json()
+      if (this.devices.length) {
+        this.selectedDevice = this.devices[0].id
+        await this.fetchData()
+      }
+    } catch (e) {
+      console.error('加载设备失败', e)
+    }
+  },
   methods: {
     async fetchData() {
       if (!this.selectedDevice) return
@@ -63,16 +74,16 @@ export default {
         console.error('获取数据失败:', error)
       }
     },
-    
+
     formatTime(timestamp) {
       return new Date(timestamp).toLocaleString()
     },
-    
+
     formatValue(value) {
       return typeof value === 'number' ? value.toFixed(2) : value
     }
   },
-  
+
   watch: {
     selectedDevice() {
       this.fetchData()

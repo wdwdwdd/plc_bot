@@ -6,10 +6,20 @@ devices:
       - address: 1000
         name: 温度
         type: float
+        alarm:
+          op: gt
+          threshold: 80
+          level: warning
+          message: "温度过高: 当前 {value}, 阈值 {threshold}"
       - address: 1002
         name: 压力
         type: float
-  
+        alarm:
+          op: lt
+          threshold: 5
+          level: error
+          message: "压力过低: 当前 {value}, 阈值 {threshold}"
+
   - name: PLC-002
     ip_address: 192.168.1.101
     port: 502
