@@ -1,9 +1,7 @@
-database:
+redis:
   host: localhost
-  port: 5432
-  name: plc_monitor
-  user: admin
-  password: secret
+  port: 6379
+  db: 0
 
 collector:
   interval: 5  # 采集间隔（秒）

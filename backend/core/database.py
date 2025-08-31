@@ -1,23 +1,19 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import QueuePool
-import yaml
+import redis
 import os
-
 
 def load_db_config():
     config_path = os.getenv("CONFIG_PATH", "../config/settings.yaml")
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
-        cfg = config.get("database", {})
-        # Allow environment overrides (useful in docker-compose)
+        cfg = config.get("redis", {})
+        # Allow environment overrides
         return {
-            "host": os.getenv("DB_HOST", cfg.get("host", "localhost")),
-            "port": int(os.getenv("DB_PORT", cfg.get("port", 5432))),
-            "name": os.getenv("DB_NAME", cfg.get("name", "plc_monitor")),
-            "user": os.getenv("DB_USER", cfg.get("user", "admin")),
-            "password": os.getenv("DB_PASSWORD", cfg.get("password", "secret")),
+            "host": os.getenv("REDIS_HOST", cfg.get("host", "localhost")),
+            "port": int(os.getenv("REDIS_PORT", cfg.get("port", 6379))),
+            "db": int(os.getenv("REDIS_DB", cfg.get("db", 0))),
         }
+
+redis_client = redis.Redis(**load_db_config())
 
 
 db_config = load_db_config()
