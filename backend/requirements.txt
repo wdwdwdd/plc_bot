@@ -5,6 +5,6 @@ fastapi==0.68.1
 redis==4.3.4
 uvicorn==0.15.0
 python-jose==3.3.0
-python-multipart==0.0.5
+python-multipart==0.0.18
 passlib[bcrypt]==1.7.4
 
